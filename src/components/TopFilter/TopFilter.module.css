@@ -1,8 +1,13 @@
 .topFilter {
+    width: 100%;
+
     .filterBtnGroup {
         display: flex;
         flex-direction: row;
-        gap: 2rem;
+        gap: 1rem;
+        overflow-x: scroll;
+        flex-wrap: nowrap;
+
     }
 
     .btnContent {
@@ -11,6 +16,7 @@
         flex-direction: row;
         justify-content: space-between;
         height: 60px;
+        flex-shrink: 0;
 
         img {
             position: relative;
