@@ -1,8 +1,26 @@
 .page {
-  margin: 3rem 2rem;
+  margin: 3rem 2rem 0 2rem;
 
   header {
     margin-bottom: 3rem;
+  }
+
+  main {
+    width: 100vw;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+  }
+
+  aside {
+    width: fit-content;
+    height: 100%;
+  }
+
+  .mainSection {
+    flex-grow: 4;
+    height: 5000px;
   }
 }
 

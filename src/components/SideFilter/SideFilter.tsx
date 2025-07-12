@@ -6,14 +6,9 @@ import { Button } from '@/components/Button';
 import { useAppDispatch } from '@/hooks/reduxHooks';
 import { filtersSlice, RangeFilter } from '@/store/slices/filters/filtersSlice';
 import { RootState } from '@/store';
+import { Filters } from '@/types/filters';
 
 import styles from './SideFilter.module.css';
-
-interface Filters {
-  id: string;
-  name: string;
-  img_url: string;
-}
 
 export const SideFilter = (): ReactElement => {
   const dispatch = useAppDispatch();
@@ -21,8 +16,9 @@ export const SideFilter = (): ReactElement => {
   const categoryFilter = useSelector((state: RootState) => state.filter.category);
   const timeFilter = useSelector((state: RootState) => state.filter.timeRange);
   const priceFilter = useSelector((state: RootState) => state.filter.price);
+  const filterOptions = useSelector((state: RootState) => state.filter.filterOptions);
 
-  const [filters, setFilters] = useState<Filters[] | null>(null); //filters from api
+  // const [filters, setFilters] = useState<Filters[] | null>(null); //filters from api
   const [loading, setLoading] = useState(true);
 
   const handleCategoryClick = ({ id }: { id: string }) => {
@@ -40,12 +36,13 @@ export const SideFilter = (): ReactElement => {
   };
 
   useEffect(() => {
-    if (filters === null) {
+    if (filterOptions === null) {
       fetch('/api/filter')
         .then(async (res) => {
           const response = await res.json();
 
-          setFilters(response.data.filters);
+          // setFilters(response.data.filters.slice(0, 4));
+          dispatch(filtersSlice.actions.setFilterOptions(response.data.filters));
           setLoading(false);
         })
         .catch((err) => {
@@ -56,7 +53,7 @@ export const SideFilter = (): ReactElement => {
 
   return (
     <div className={styles.sideFilter}>
-      {loading || !filters ? (
+      {loading || !filterOptions ? (
         <div>Loading filters...</div>
       ) : (
         <>
@@ -65,7 +62,7 @@ export const SideFilter = (): ReactElement => {
             <section>
               <h3>food category</h3>
               <div className={styles.catButtonGroup}>
-                {filters.map((filter) => (
+                {filterOptions.slice(0, 4).map((filter) => (
                   <Button
                     key={filter.id}
                     id={filter.id}

@@ -1,5 +1,6 @@
 import { LogoSVG } from '@/components/LogoSVG';
 import { SideFilter } from '@/components/SideFilter/SideFilter';
+import { TopFilter } from '@/components/TopFilter';
 
 import styles from './page.module.css';
 
@@ -10,9 +11,15 @@ export default function Home() {
         <LogoSVG aria-label="Munchies logo" />
       </header>
 
-      <aside>
-        <SideFilter />
-      </aside>
+      <main>
+        <aside>
+          <SideFilter />
+        </aside>
+
+        <section className={styles.mainSection}>
+          <TopFilter />
+        </section>
+      </main>
     </div>
   );
 }
