@@ -1,7 +1,7 @@
 .sideFilter {
     background-color: white;
     width: 240px;
-    height: 100vh;
+    height: calc(100vh - 200px);
 
     padding: 1rem;
     border: 1px solid var(--borderColor);
@@ -15,12 +15,21 @@
         margin-top: 2rem;
         display: flex;
         flex-direction: column;
+        gap: 2rem;
+    }
+
+    .catButtonGroup {
+        margin-top: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
     }
 
     .buttonGroup {
         margin-top: 1rem;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
+        flex-wrap: wrap;
         gap: .5rem;
     }
 }

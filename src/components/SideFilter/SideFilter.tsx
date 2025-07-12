@@ -1,13 +1,13 @@
 'use client';
 import { ReactElement, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import { Button } from '@/components/Button';
 import { useAppDispatch } from '@/hooks/reduxHooks';
-import { filtersSlice } from '@/store/slices/filters/filtersSlice';
-import { useSelector } from 'react-redux';
+import { filtersSlice, RangeFilter } from '@/store/slices/filters/filtersSlice';
+import { RootState } from '@/store';
 
 import styles from './SideFilter.module.css';
-import { RootState } from '@/store';
 
 interface Filters {
   id: string;
@@ -19,13 +19,24 @@ export const SideFilter = (): ReactElement => {
   const dispatch = useAppDispatch();
 
   const categoryFilter = useSelector((state: RootState) => state.filter.category);
+  const timeFilter = useSelector((state: RootState) => state.filter.timeRange);
+  const priceFilter = useSelector((state: RootState) => state.filter.price);
 
-  const [filters, setFilters] = useState<Filters[] | null>(null);
+  const [filters, setFilters] = useState<Filters[] | null>(null); //filters from api
   const [loading, setLoading] = useState(true);
 
-  const handleClick = ({ id }: { id: string }) => {
-    console.log('clicked', { id });
+  const handleCategoryClick = ({ id }: { id: string }) => {
     dispatch(filtersSlice.actions.setCategory(categoryFilter === id ? null : id));
+  };
+
+  const handleRangeClick = ({ id }: { id: string }) => {
+    const selectedRange = id as RangeFilter;
+    dispatch(filtersSlice.actions.setTimeRange(timeFilter === selectedRange ? null : selectedRange));
+  };
+
+  const handlePriceClick = ({ id }: { id: string }) => {
+    const selectedPrice = id as RangeFilter;
+    dispatch(filtersSlice.actions.setPrice(priceFilter === selectedPrice ? null : selectedPrice));
   };
 
   useEffect(() => {
@@ -53,17 +64,53 @@ export const SideFilter = (): ReactElement => {
           <div className={styles.sections}>
             <section>
               <h3>food category</h3>
-              <div className={styles.buttonGroup}>
+              <div className={styles.catButtonGroup}>
                 {filters.map((filter) => (
                   <Button
                     key={filter.id}
                     id={filter.id}
-                    onClick={handleClick}
+                    onClick={handleCategoryClick}
                     active={categoryFilter === filter.id}
                   >
                     {filter.name}
                   </Button>
                 ))}
+              </div>
+            </section>
+
+            <section>
+              <h3>delivery time</h3>
+              <div className={styles.buttonGroup}>
+                <Button id={'low'} onClick={handleRangeClick} active={timeFilter === 'low'}>
+                  0-10 min
+                </Button>
+                <Button id={'medium'} onClick={handleRangeClick} active={timeFilter === 'medium'}>
+                  10-30 min
+                </Button>
+                <Button id={'high'} onClick={handleRangeClick} active={timeFilter === 'high'}>
+                  30-60 min
+                </Button>
+                <Button id={'extraHigh'} onClick={handleRangeClick} active={timeFilter === 'extraHigh'}>
+                  1 hour+
+                </Button>
+              </div>
+            </section>
+
+            <section>
+              <h3>Price Range</h3>
+              <div className={styles.buttonGroup}>
+                <Button id={'low'} onClick={handlePriceClick} active={priceFilter === 'low'}>
+                  $
+                </Button>
+                <Button id={'medium'} onClick={handlePriceClick} active={priceFilter === 'medium'}>
+                  $$
+                </Button>
+                <Button id={'high'} onClick={handlePriceClick} active={priceFilter === 'high'}>
+                  $$
+                </Button>
+                <Button id={'extraHigh'} onClick={handlePriceClick} active={priceFilter === 'extraHigh'}>
+                  $$$$
+                </Button>
               </div>
             </section>
           </div>
