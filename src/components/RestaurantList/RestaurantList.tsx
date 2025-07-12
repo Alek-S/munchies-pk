@@ -7,6 +7,7 @@ import { BASE_URL } from '@/utils/api';
 import styles from './RestaurantList.module.css';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
+import { withinTimeRange } from '@/utils/withinRange';
 
 interface Restaurant {
   id: string;
@@ -34,6 +35,12 @@ export const RestaurantList = (): ReactElement => {
     if (categoryFilter !== null) {
       filteredRestaurants = filteredRestaurants.filter((restaurant) =>
         restaurant.filter_ids.includes(categoryFilter),
+      );
+    }
+
+    if (timeFilter !== null) {
+      filteredRestaurants = filteredRestaurants.filter((restaurant) =>
+        withinTimeRange({ minutes: restaurant.delivery_time_minutes, range: timeFilter }),
       );
     }
 
