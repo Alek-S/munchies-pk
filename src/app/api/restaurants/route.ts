@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import NodeCache from 'node-cache';
-import {API_URL, TTL_TIME} from "@/utils/api";
+import {API_URL, errorResponseBody, TTL_TIME} from "@/utils/api";
+import {ResponseBody} from "@/types/api";
 
 const allRestaurantsCache = new NodeCache({ stdTTL: TTL_TIME });
 
@@ -17,16 +18,18 @@ export async function GET() {
     const response = await fetch(`${API_URL}/restaurants`)
 
     if (!response.ok) {
-      return NextResponse.json({status: 'error', error: 'error fetching restaurants', data: {}}, {status: 500})
+      return NextResponse.json(errorResponseBody('error fetching restaurants'), {status: 500})
     }
 
     respData = await response.json();
-
     allRestaurantsCache.set(cacheKey, respData);
-
   }
 
+  const responseBody: ResponseBody = {
+    status: 'success',
+    error: '',
+    data: respData
+  };
 
-  return NextResponse.json({status: 'success', error: '', data: respData}, {status: 200})
-
+  return NextResponse.json(responseBody, {status: 200})
 }

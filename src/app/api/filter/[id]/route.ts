@@ -3,49 +3,49 @@ import NodeCache from 'node-cache';
 import {API_URL, errorResponseBody, TTL_TIME} from "@/utils/api";
 import {ResponseBody} from "@/types/api";
 
-const restaurantByIdCache = new NodeCache({ stdTTL: TTL_TIME });
+const filterByIdCache = new NodeCache({ stdTTL: TTL_TIME });
 
 export async function GET(_request: Request, { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
   if (!id) {
     return NextResponse.json(
-      errorResponseBody('restaurant ID missing'),
+      errorResponseBody('filter ID missing'),
       { status: 400 }
     );
   }
 
-  const cacheKey = `restaurant-${id}`;
+  const cacheKey = `filter-${id}`;
   let respData = {};
-  const cachedData = restaurantByIdCache.get(cacheKey);
+  const cachedData = filterByIdCache.get(cacheKey);
 
 
   if (cachedData) {
-    console.log(`[restaurant ${id}] Cache hit`);
+    console.log(`[filter ${id}] Cache hit`);
     respData = cachedData;
   } else {
-    console.log(`[restaurant ${id}] Cache miss`);
-    const response = await fetch(`${API_URL}/restaurants/${id}`);
+    console.log(`[filter ${id}] Cache miss`);
+    const response = await fetch(`${API_URL}/filter/${id}`);
 
     if (!response.ok) {
       if (response.status === 404) {
         return NextResponse.json(
-          errorResponseBody('Restaurant not found'),
+          errorResponseBody('filter not found'),
           { status: 404 }
         );
       } else {
         return NextResponse.json(
-          errorResponseBody('error fetching restaurant'),
+          errorResponseBody('error fetching filter'),
           { status: 500 }
         );
       }
     }
 
     respData = await response.json();
-    restaurantByIdCache.set(cacheKey, respData);
+    filterByIdCache.set(cacheKey, respData);
 
     return NextResponse.json(
-      { status: 'error', error: 'Error fetching restaurant', data: {} },
+      { status: 'error', error: 'Error fetching filter', data: {} },
       { status: 500 }
     );
 
