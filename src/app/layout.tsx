@@ -6,6 +6,7 @@ import { StoreProvider } from "@/components/StoreProvider";
 import "./globals.css";
 
 const inter = Inter({
+  weight: '400',
   subsets: ['latin'],
 })
 
