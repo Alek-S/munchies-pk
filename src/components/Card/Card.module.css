@@ -1,4 +1,5 @@
 .card {
+    overflow: hidden;
     background-color: white;
     border: 1px solid var(--borderColor);
     border-radius: 10px;
@@ -11,6 +12,16 @@
         display: flex;
         flex-direction: row;
         gap: .5rem;
+    }
+
+    img {
+        position: relative;
+        left: 210px;
+        top: -80px;
+
+        &.closed {
+            opacity: .2;
+        }
     }
 }
 

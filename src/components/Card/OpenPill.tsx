@@ -2,9 +2,16 @@ import { ReactElement, useEffect, useState } from 'react';
 
 import styles from './Card.module.css';
 
-export const OpenPill = ({ id }: { id: string }): ReactElement => {
+export const OpenPill = ({
+  id,
+  isOpen,
+  setIsOpen,
+}: {
+  id: string;
+  isOpen: boolean | null;
+  setIsOpen: (e: boolean) => void;
+}): ReactElement => {
   const [loading, setLoading] = useState(true);
-  const [isOpen, setIsOpen] = useState<boolean | null>(null);
 
   useEffect(() => {
     if (isOpen === null) {
