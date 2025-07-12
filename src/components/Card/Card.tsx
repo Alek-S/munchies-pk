@@ -1,9 +1,10 @@
 import { ReactElement, useState } from 'react';
 
-import styles from './Card.module.css';
 import { OpenPill } from '@/components/Card/OpenPill';
 import { TimePill } from '@/components/Card/TimePill';
-import { BASE_URL } from '@/utils/api';
+
+import styles from './Card.module.css';
+import { RightArrowSVG } from '@/components/Card/RightArrowSVG';
 
 interface CardProps {
   id: string;
@@ -21,6 +22,13 @@ export const Card = ({ id, name, image, timeMinutes }: CardProps): ReactElement 
         <OpenPill id={id} isOpen={isOpen} setIsOpen={setIsOpen} />
         {isOpen && <TimePill minutes={timeMinutes} />}
       </div>
+
+      <h2 className={styles.name}>{name}</h2>
+      {isOpen && (
+        <div className={styles.arrow}>
+          <RightArrowSVG />
+        </div>
+      )}
 
       <img className={!isOpen ? styles.closed : ''} src={image} alt={name} width={150} height={150} />
     </div>

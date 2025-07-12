@@ -13,11 +13,28 @@
         flex-direction: row;
         gap: .5rem;
     }
+    .name {
+        font-size: 1.4rem;
+        max-width: 240px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        position: relative;
+        left: 10px;
+        top: 100px;
+    }
+
+    .arrow {
+        cursor: pointer;
+        position: relative;
+        left: 280px;
+        top: 70px;
+    }
 
     img {
         position: relative;
         left: 210px;
-        top: -80px;
+        top: -160px;
 
         &.closed {
             opacity: .2;

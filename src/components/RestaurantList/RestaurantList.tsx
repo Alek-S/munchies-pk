@@ -47,6 +47,7 @@ export const RestaurantList = (): ReactElement => {
         <section className={styles.cardSection}>
           {allRestaurants?.map((restaurant) => (
             <Card
+              key={restaurant.id}
               id={restaurant.id}
               name={restaurant.name}
               image={`${BASE_URL}${restaurant.image_url}`}
