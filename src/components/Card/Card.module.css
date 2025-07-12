@@ -1,0 +1,39 @@
+.card {
+    background-color: white;
+    border: 1px solid var(--borderColor);
+    border-radius: 10px;
+
+    width: 325px;
+    height: 200px;
+
+    .pillGroup {
+        margin: 1rem;
+        display: flex;
+        flex-direction: row;
+        gap: .5rem;
+    }
+}
+
+.restPill {
+    padding: .2rem .5rem;
+    background-color: white;
+    border: 1px solid var(--borderColor);
+    border-radius: 10px;
+    width: fit-content;
+    font-size: .7rem;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .5rem;
+
+    .statusIcon {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: #01703A;
+    }
+    .closed {
+        background-color: black;
+    }
+}

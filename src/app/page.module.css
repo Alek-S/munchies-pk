@@ -23,9 +23,13 @@
 
   .mainSection {
     flex-grow: 4;
-    height: 5000px;
+    height: fit-content;
     min-width: 0;
     overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
   }
 }
 

@@ -1,0 +1,12 @@
+.restaurantList {
+    h2 {
+        font-size: 2rem;
+    }
+
+    .cardSection {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+}

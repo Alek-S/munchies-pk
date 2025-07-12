@@ -3,6 +3,7 @@ import { SideFilter } from '@/components/SideFilter/SideFilter';
 import { TopFilter } from '@/components/TopFilter';
 
 import styles from './page.module.css';
+import { RestaurantList } from '@/components/RestaurantList';
 
 export default function Home() {
   return (
@@ -18,6 +19,8 @@ export default function Home() {
 
         <section className={styles.mainSection}>
           <TopFilter />
+
+          <RestaurantList />
         </section>
       </main>
     </div>
