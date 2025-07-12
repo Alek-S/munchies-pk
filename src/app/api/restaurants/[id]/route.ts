@@ -43,12 +43,6 @@ export async function GET(_request: Request, { params }: { params: Promise<{ id:
 
     respData = await response.json();
     restaurantByIdCache.set(cacheKey, respData);
-
-    return NextResponse.json(
-      { status: 'error', error: 'Error fetching restaurant', data: {} },
-      { status: 500 }
-    );
-
   }
 
   const responseBody: ResponseBody = {
