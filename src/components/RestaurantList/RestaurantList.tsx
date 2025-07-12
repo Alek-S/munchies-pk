@@ -1,10 +1,12 @@
 'use client';
-import { ReactElement, useEffect, useState } from 'react';
+import { ReactElement, useEffect, useMemo, useState } from 'react';
 
 import { Card } from '@/components/Card';
 import { BASE_URL } from '@/utils/api';
 
 import styles from './RestaurantList.module.css';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store';
 
 interface Restaurant {
   id: string;
@@ -17,8 +19,26 @@ interface Restaurant {
 }
 
 export const RestaurantList = (): ReactElement => {
+  const categoryFilter = useSelector((state: RootState) => state.filter.category);
+  const timeFilter = useSelector((state: RootState) => state.filter.timeRange);
+  const priceFilter = useSelector((state: RootState) => state.filter.price);
+
   const [loading, setLoading] = useState(true);
   const [allRestaurants, setAllRestaurants] = useState<Restaurant[] | null>(null); // from API
+
+  const filteredRestaurants = useMemo((): Restaurant[] | null => {
+    if (allRestaurants === null) return null;
+
+    let filteredRestaurants = [...allRestaurants];
+
+    if (categoryFilter !== null) {
+      filteredRestaurants = filteredRestaurants.filter((restaurant) =>
+        restaurant.filter_ids.includes(categoryFilter),
+      );
+    }
+
+    return filteredRestaurants;
+  }, [categoryFilter, timeFilter, priceFilter]);
 
   useEffect(() => {
     if (allRestaurants === null) {
@@ -45,7 +65,7 @@ export const RestaurantList = (): ReactElement => {
         <div>Loading restaurants...</div>
       ) : (
         <section className={styles.cardSection}>
-          {allRestaurants?.map((restaurant) => (
+          {filteredRestaurants?.map((restaurant) => (
             <Card
               key={restaurant.id}
               id={restaurant.id}
