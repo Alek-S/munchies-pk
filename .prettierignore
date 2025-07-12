@@ -1,0 +1,7 @@
+.next/
+next.config.ts
+next-env.d.ts
+package.json
+.idea/
+coverage
+node_modules
