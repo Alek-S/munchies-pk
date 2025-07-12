@@ -6,7 +6,6 @@ import { Button } from '@/components/Button';
 import { useAppDispatch } from '@/hooks/reduxHooks';
 import { filtersSlice, RangeFilter } from '@/store/slices/filters/filtersSlice';
 import { RootState } from '@/store';
-import { Filters } from '@/types/filters';
 
 import styles from './SideFilter.module.css';
 
@@ -18,7 +17,6 @@ export const SideFilter = (): ReactElement => {
   const priceFilter = useSelector((state: RootState) => state.filter.price);
   const filterOptions = useSelector((state: RootState) => state.filter.filterOptions);
 
-  // const [filters, setFilters] = useState<Filters[] | null>(null); //filters from api
   const [loading, setLoading] = useState(true);
 
   const handleCategoryClick = ({ id }: { id: string }) => {
@@ -41,9 +39,10 @@ export const SideFilter = (): ReactElement => {
         .then(async (res) => {
           const response = await res.json();
 
-          // setFilters(response.data.filters.slice(0, 4));
-          dispatch(filtersSlice.actions.setFilterOptions(response.data.filters));
-          setLoading(false);
+          if (response.status === 'success') {
+            dispatch(filtersSlice.actions.setFilterOptions(response.data.filters));
+            setLoading(false);
+          }
         })
         .catch((err) => {
           console.log('SideFilter - API Error', err);

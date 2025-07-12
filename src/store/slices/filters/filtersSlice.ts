@@ -36,5 +36,5 @@ export const filtersSlice = createSlice({
   },
 });
 
-export const { setCategory, setTimeRange, setPrice } = filtersSlice.actions;
+export const { setCategory, setTimeRange, setPrice, setFilterOptions } = filtersSlice.actions;
 export default filtersSlice.reducer;

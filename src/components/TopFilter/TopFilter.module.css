@@ -1,3 +1,20 @@
 .topFilter {
-    background-color: yellow;
+    .filterBtnGroup {
+        display: flex;
+        flex-direction: row;
+        gap: 2rem;
+    }
+
+    .btnContent {
+        width: 160px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        height: 60px;
+
+        img {
+            position: relative;
+            top: -10px;
+        }
+    }
 }
