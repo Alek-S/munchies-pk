@@ -1,15 +1,15 @@
-import { configureStore } from '@reduxjs/toolkit'
-import counterReducer from '@/store/slices/filters/filtersSlice'
+import { configureStore } from '@reduxjs/toolkit';
+import filterReducer from '@/store/slices/filters/filtersSlice';
 
 /** Redux store, for use by provider */
 export const store = () => {
   return configureStore({
     reducer: {
-      counter: counterReducer,
+      filter: filterReducer,
     },
-  })
-}
+  });
+};
 
-export type AppStore = ReturnType<typeof store>
-export type RootState = ReturnType<AppStore['getState']>
-export type AppDispatch = AppStore['dispatch']
+export type AppStore = ReturnType<typeof store>;
+export type RootState = ReturnType<AppStore['getState']>;
+export type AppDispatch = AppStore['dispatch'];

@@ -1,0 +1,26 @@
+.sideFilter {
+    background-color: white;
+    width: 240px;
+    height: 100vh;
+
+    padding: 1rem;
+    border: 1px solid var(--borderColor);
+    border-radius: 10px;
+
+    h2 {
+        margin-bottom: 1rem;
+    }
+
+    .sections {
+        margin-top: 2rem;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .buttonGroup {
+        margin-top: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
+    }
+}

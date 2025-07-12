@@ -1,6 +1,9 @@
 :root {
   --background: #FAFAFA;
   --foreground: #000;
+  --borderColor: #E5E5E5;
+  --lightGray: #999;
+  --active: #72ecc2;
 }
 
 html,
@@ -26,6 +29,18 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+h2 {
+  font-family: Inter, sans-serif;
+  font-weight: 400;
+}
+
+h3 {
+  font-family: Inter, sans-serif;
+  text-transform: uppercase;
+  color: var(--lightGray);
+  font-size: .7em;
 }
 
 @media (prefers-color-scheme: dark) {

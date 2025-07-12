@@ -1,22 +1,22 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 interface FilterState {
-  helloWorld: boolean
+  category: string | null;
 }
 
 const initialState: FilterState = {
-  helloWorld: true,
-}
+  category: null,
+};
 
 export const filtersSlice = createSlice({
-  name: 'counter',
+  name: 'filter',
   initialState,
   reducers: {
-    setValue: (state, action: PayloadAction<boolean>) => {
-      state.helloWorld = action.payload
+    setCategory: (state, action: PayloadAction<FilterState['category']>) => {
+      state.category = action.payload;
     },
   },
-})
+});
 
-export const { setValue } = filtersSlice.actions
-export default filtersSlice.reducer
+export const { setCategory } = filtersSlice.actions;
+export default filtersSlice.reducer;
