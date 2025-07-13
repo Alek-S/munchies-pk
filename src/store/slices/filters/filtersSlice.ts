@@ -8,6 +8,7 @@ interface FilterState {
   timeRange: RangeFilter | null;
   price: RangeFilter | null;
   filterOptions: Filters[] | null;
+  priceFilterLookup: Record<string, string | null> | null;
 }
 
 const initialState: FilterState = {
@@ -15,6 +16,7 @@ const initialState: FilterState = {
   timeRange: null,
   price: null,
   filterOptions: null,
+  priceFilterLookup: null,
 };
 
 export const filtersSlice = createSlice({
@@ -32,6 +34,9 @@ export const filtersSlice = createSlice({
     },
     setFilterOptions: (state, action: PayloadAction<FilterState['filterOptions']>) => {
       state.filterOptions = action.payload;
+    },
+    addPriceLookup: (state, action: PayloadAction<FilterState['priceFilterLookup']>) => {
+      state.priceFilterLookup = { ...state.priceFilterLookup, ...action.payload };
     },
   },
 });

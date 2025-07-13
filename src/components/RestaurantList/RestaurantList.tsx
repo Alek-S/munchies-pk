@@ -8,6 +8,9 @@ import styles from './RestaurantList.module.css';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { withinTimeRange } from '@/utils/withinRange';
+import { useAppDispatch } from '@/hooks/reduxHooks';
+import { filtersSlice } from '@/store/slices/filters/filtersSlice';
+import { convertPriceToRange } from '@/utils/convertPriceToRange';
 
 interface Restaurant {
   id: string;
@@ -20,9 +23,12 @@ interface Restaurant {
 }
 
 export const RestaurantList = (): ReactElement => {
+  const dispatch = useAppDispatch();
+
   const categoryFilter = useSelector((state: RootState) => state.filter.category);
   const timeFilter = useSelector((state: RootState) => state.filter.timeRange);
   const priceFilter = useSelector((state: RootState) => state.filter.price);
+  const priceFilterLookup = useSelector((state: RootState) => state.filter.priceFilterLookup);
 
   const [loading, setLoading] = useState(true);
   const [allRestaurants, setAllRestaurants] = useState<Restaurant[] | null>(null); // from API
@@ -44,6 +50,12 @@ export const RestaurantList = (): ReactElement => {
       );
     }
 
+    if (priceFilter !== null) {
+      filteredRestaurants = filteredRestaurants.filter((restaurant) => {
+        return priceFilterLookup && priceFilterLookup[restaurant.price_range_id] === priceFilter;
+      });
+    }
+
     return filteredRestaurants;
   }, [categoryFilter, timeFilter, priceFilter]);
 
@@ -52,11 +64,33 @@ export const RestaurantList = (): ReactElement => {
       fetch('/api/restaurants')
         .then(async (res) => {
           const response = await res.json();
-          console.log(1, response.data.restaurants);
 
           if (response.status === 'success') {
             setAllRestaurants(response.data.restaurants);
             setLoading(false);
+
+            if (priceFilterLookup === null) {
+              // Build out price ID dictionary that we then use while filtering on price.
+              // This is to pull it in up front not hit the price-range api each filter
+              const priceIds = [
+                ...new Set(
+                  response.data.restaurants.map(
+                    (restaurant: { price_range_id: any }) => restaurant.price_range_id,
+                  ),
+                ),
+              ];
+
+              priceIds.forEach((priceId) => {
+                fetch(`/api/price-range/${priceId}`).then(async (res) => {
+                  const response = await res.json();
+
+                  if (response.data.range) {
+                    const convertedRange = convertPriceToRange(response.data.range);
+                    dispatch(filtersSlice.actions.addPriceLookup({ [priceId as string]: convertedRange }));
+                  }
+                });
+              });
+            }
           }
         })
         .catch((err) => {
