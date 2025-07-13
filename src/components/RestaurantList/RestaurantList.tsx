@@ -22,6 +22,7 @@ interface Restaurant {
   price_range_id: string;
 }
 
+/** Filtered Card lists of Restaurants */
 export const RestaurantList = (): ReactElement => {
   const dispatch = useAppDispatch();
 

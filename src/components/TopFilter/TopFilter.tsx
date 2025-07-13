@@ -10,6 +10,7 @@ import styles from './TopFilter.module.css';
 import { filtersSlice } from '@/store/slices/filters/filtersSlice';
 import { useAppDispatch } from '@/hooks/reduxHooks';
 
+/** filters above the cards, with overflow horizontal scrolling */
 export const TopFilter = (): ReactElement => {
   const dispatch = useAppDispatch();
 

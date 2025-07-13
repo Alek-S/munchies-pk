@@ -1,5 +1,6 @@
 import { RangeFilter } from '@/store/slices/filters/filtersSlice';
 
+/** to convert $, $$, $$$, $$$$ to a RangeFilter */
 export const convertPriceToRange = (range: string): RangeFilter | null => {
   switch (range.length) {
     case 1:

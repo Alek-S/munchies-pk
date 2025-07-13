@@ -13,6 +13,7 @@ interface CardProps {
   timeMinutes: number;
 }
 
+/** A single restaurant card entry */
 export const Card = ({ id, name, image, timeMinutes }: CardProps): ReactElement => {
   const [isOpen, setIsOpen] = useState<boolean | null>(null);
 

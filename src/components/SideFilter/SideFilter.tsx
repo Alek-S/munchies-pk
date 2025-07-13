@@ -9,6 +9,7 @@ import { RootState } from '@/store';
 
 import styles from './SideFilter.module.css';
 
+/** filter selection on the left side menu */
 export const SideFilter = (): ReactElement => {
   const dispatch = useAppDispatch();
 
