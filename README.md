@@ -24,6 +24,9 @@
      - **api/** _API Proxy Server & GET routes_
    - 📁 **components/** _Shared React UI Components_
    - 📁 **utils/** _Shared helper functions and other configs_
+   - 📁 **store/** _Redux slices/reducers_
+   - 📁 **hooks/** _Custom React hooks, mostly to wrap redux in ts types_
+   - 📁 **types/** _Typescript types_
   
 
 
