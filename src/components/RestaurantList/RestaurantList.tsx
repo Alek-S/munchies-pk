@@ -58,7 +58,7 @@ export const RestaurantList = (): ReactElement => {
     }
 
     return filteredRestaurants;
-  }, [categoryFilter, timeFilter, priceFilter]);
+  }, [categoryFilter, timeFilter, priceFilter, priceFilterLookup]);
 
   useEffect(() => {
     if (allRestaurants === null) {
